@@ -29,8 +29,6 @@ class wmf(
     path    => 'C:/Windows/System32/',
   }
   ~>
-  reboot { "Reboot after WMF ${version}":
-    when => pending,
-  }
+  reboot { "Reboot after WMF ${version}": }
 
 }
