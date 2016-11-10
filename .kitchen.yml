@@ -1,0 +1,36 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: puppet_apply
+  manifests_path: spec/manifests
+  modules_path: .kitchen-modules
+  require_chef_for_busser: false
+  resolve_with_librarian_puppet: false
+  require_puppet_collections: true
+  puppet_detailed_exitcodes: true
+  max_retries: 2
+  wait_for_retry: 70
+  retry_on_exit_code:
+    - 2 # The run succeeded, and some resources were changed.
+    - 6 # The run succeeded, and included both changes and failures.
+
+platforms:
+  - name: windows-2012r2
+    driver_plugin: vagrant
+    driver_config:
+      box: kensykora/windows_2012_r2_standard
+    transport:
+      name: winrm
+      elevated: true
+
+verifier:
+  name: shell
+
+suites:
+  - name: default
+    provisioner:
+      manifest: default.pp
+    verifier:
+      command: rspec -c -f d -I spec spec/acceptance/default_spec.rb
