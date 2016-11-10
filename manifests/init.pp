@@ -4,13 +4,15 @@ class wmf(
   $temp_folder = $wmf::params::temp_folder
   ) inherits wmf::params {
 
-  # require archive
-
-  $download_url = $urls[$version][$::operatingsystemrelease]
-  if( $download_url == undef ) {
-    fail "Cannot determine URL for WMF ${version} and OS version ${::operatingsystemrelease}"
+  if ! has_key($wmf::params::urls, "${version}") {
+    fail "This version of WMF is not supported: ${version}"
   }
 
+  if ! has_key($wmf::params::urls["${version}"], $::operatingsystemrelease) {
+    fail "This OS (${::operatingsystemrelease}) is not supported for WMF ${version}"
+  }
+
+  $download_url = $wmf::params::urls["${version}"][$::operatingsystemrelease]
   $kb_number = $download_url.match(/(KB\d+)/)[1]
 
   ensure_resource('file', $temp_folder, { ensure => directory })
