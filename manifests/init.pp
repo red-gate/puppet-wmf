@@ -6,9 +6,9 @@ class wmf(
 
   # require archive
 
-  $download_url = $urls[$version][$::os['release']['major']]
+  $download_url = $urls[$version][$::operatingsystemrelease]
   if( $download_url == undef ) {
-    fail "Cannot determine URL for WMF ${version} and OS ${::os}"
+    fail "Cannot determine URL for WMF ${version} and OS version ${::operatingsystemrelease}"
   }
 
   $kb_number = $download_url.match(/(KB\d+)/)[1]
