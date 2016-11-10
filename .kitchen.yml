@@ -11,7 +11,7 @@ provisioner:
   require_puppet_collections: true
   puppet_detailed_exitcodes: true
   max_retries: 2
-  wait_for_retry: 70
+  wait_for_retry: 20
   retry_on_exit_code:
     - 2 # The run succeeded, and some resources were changed.
     - 6 # The run succeeded, and included both changes and failures.
