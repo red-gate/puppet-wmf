@@ -26,7 +26,7 @@ class wmf(
     # Need to use "cmd.exe /c Start" to block the exec task until the wusa.exe exit.
     command  => "cmd.exe /c Start /WAIT wusa.exe \"${temp_folder}/wmf_${version}.msu\" /quiet /norestart",
     returns  => [0, 3010],
-    unless   => "cmd.exe /c wbem\\wmic qfe | findstr ${kb_number}",
+    unless   => "cmd.exe /c wmic qfe | findstr ${kb_number}",
     path    => 'C:/Windows/System32/',
   }
   ~>
