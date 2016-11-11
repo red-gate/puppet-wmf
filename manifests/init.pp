@@ -27,7 +27,8 @@ class wmf(
     command  => "cmd.exe /c Start /WAIT wusa.exe \"${temp_folder}/wmf_${version}.msu\" /quiet /norestart",
     returns  => [0, 3010],
     unless   => "cmd.exe /c wmic qfe | findstr ${kb_number}",
-    path    => 'C:/Windows/System32/',
+    path     => 'C:/Windows/System32/',
+    provider => 'windows',
   }
   ~>
   reboot { "Reboot after WMF ${version}": }
