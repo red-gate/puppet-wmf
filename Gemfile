@@ -15,7 +15,7 @@ gem 'winrm-elevated', '~> 1'
 gem 'serverspec', '~> 2'
 
 # We use rake as our build engine
-gem 'rake', '~> 11'
+gem 'rake', '~> 12'
 # This gem tells us how long each rake task takes.
 gem 'rake-performance'
 
